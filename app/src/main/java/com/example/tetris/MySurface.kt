@@ -1,46 +1,39 @@
 package com.example.tetris
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.view.ViewGroup
 
 
-class MySurfaceView(context: Context?) : SurfaceView(context), SurfaceHolder.Callback {
-    private var drawThread: DrawThread? = null
+class MySurface(context: Context?, attrs: AttributeSet?) :
+    SurfaceView(context, attrs), SurfaceHolder.Callback {
+    private var image: Bitmap? = null
+    private val surfaceHolder: SurfaceHolder
 
     init {
-        layoutParams = ViewGroup.LayoutParams(
-            600,
-            800
-        )
-        setWillNotDraw(false)
-        holder.addCallback(this)
+        surfaceHolder = holder
+        surfaceHolder.addCallback(this)
     }
 
-    override fun surfaceChanged(
-        holder: SurfaceHolder, format: Int, width: Int,
-        height: Int
-    ) {
+    fun setImage(image: Bitmap?) {
+        this.image = image
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        drawThread = DrawThread(getHolder(), resources)
-        drawThread!!.setRunning(true)
-        drawThread!!.start()
+        val canvas = holder.lockCanvas()
+        if (canvas != null && image != null) {
+            canvas.drawBitmap(image!!, 0f, 0f, null)
+        }
+        holder.unlockCanvasAndPost(canvas)
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        // not needed in this example
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        var retry = true
-        // завершаем работу потока
-        drawThread!!.setRunning(false)
-        while (retry) {
-            try {
-                drawThread!!.join()
-                retry = false
-            } catch (e: InterruptedException) {
-                // если не получилось, то будем пытаться еще и еще
-            }
-        }
+        // not needed in this example
     }
 }

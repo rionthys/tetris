@@ -12,26 +12,21 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:text="0"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/surface_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SurfaceView
+        android:id="@+id/surface_view"
+        android:layout_width="300dp"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tetrislayout"
-        android:layout_width="409dp"
-        android:layout_height="783dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Score">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
